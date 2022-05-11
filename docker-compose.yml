@@ -23,3 +23,26 @@ services:
       - 8083:80
     depends_on:
       - db
+  webservice:
+    image: sogis/oereb-web-service:2
+    environment:
+      TZ: Europe/Zurich
+      DBURL: jdbc:postgresql://db:5432/oereb
+      DBUSR: dmluser
+      DBPWD: dmluser
+      TMPDIR: /tmp/
+      DBSCHEMA: live
+      MININTERSECTION: "0.1"
+    ports:
+      - 8080:8080
+    depends_on:
+      - qgis-server
+      - db
+  proxy:
+    image: fubar/proxy
+    ports:
+      - 80:80
+    depends_on:
+      - qgis-server
+      - db
+      - webservice
