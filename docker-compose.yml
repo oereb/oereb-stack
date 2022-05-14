@@ -38,11 +38,3 @@ services:
     depends_on:
       - qgis-server
       - db
-  proxy:
-    image: fubar/proxy
-    ports:
-      - 80:80
-    depends_on:
-      - qgis-server
-      - db
-      - webservice
